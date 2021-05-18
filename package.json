@@ -1,0 +1,23 @@
+{
+  "name": "nowy-narakort",
+  "version": "1.0.0",
+  "description": "Nowy Narakort is a Slack bot which will check air pollution levels near the place you live in",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/nikagra/nowy-narakort.git"
+  },
+  "author": "Mikita Hradovich",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nikagra/nowy-narakort/issues"
+  },
+  "homepage": "https://github.com/nikagra/nowy-narakort#readme",
+  "devDependencies": {
+    "@types/node": "^15.3.0",
+    "typescript": "^4.2.4"
+  }
+}

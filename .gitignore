@@ -34,6 +34,9 @@ bower_components
 # node-waf configuration
 .lock-wscript
 
+# Build directory
+build/
+
 # Compiled binary addons (https://nodejs.org/api/addons.html)
 build/Release
 
@@ -102,3 +105,6 @@ dist
 
 # TernJS port file
 .tern-port
+
+# Intellij Idea project files
+.idea/
