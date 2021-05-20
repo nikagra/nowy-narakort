@@ -2,7 +2,13 @@ import {InvalidCommandParamsError, UnableToRetrieveStationsError} from "../error
 import got from 'got';
 import haversineDistance from 'haversine-distance';
 
-type Station = { id: number; gegrLat: string; gegrLon: string, stationName: string }
+type StationCity = { name: string }
+
+type Station = { id: number; gegrLat: string; gegrLon: string, stationName: string, city: StationCity }
+
+type AirQualityIndexLevel = { id: number, indexLevelName: string }
+
+type AirQualityIndex = { stCalcDate: string, stIndexLevel: AirQualityIndexLevel}
 
 /** Client initialization options */
 export interface ClientOptions {
@@ -57,6 +63,16 @@ export default class Client {
         } catch (e) {
             console.log(e)
             return [];
+        }
+    }
+
+    public async getAirQualityIndex(stationId: number): Promise<AirQualityIndex|null> {
+        try {
+            const response = await got.get(this.baseUrl + `/aqindex/getIndex/${stationId}`);
+            return JSON.parse(response.body);
+        } catch (e) {
+            console.log(e)
+            return null;
         }
     }
 }

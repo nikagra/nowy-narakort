@@ -17,8 +17,11 @@ app.command("/air", async ({command, ack, say}: SlackCommandMiddlewareArgs) => {
 
     let response = await client.getClosestStation(command.text)
     console.log(response);
+    let airQualityIndex = await client.getAirQualityIndex(response.id)
+    console.log(airQualityIndex);
 
-    await say(`Station ${response.stationName} with id ${response.id} is the closest station 🌡`);
+    await say(`Aktualny stan jakości powietrza w mieście ${response.city.name} 🏙️: ${airQualityIndex?.stIndexLevel.indexLevelName}.`
+    + ` Pomiar wykonany na stacji "${response.stationName}" o dacie ${airQualityIndex?.stCalcDate} 🌡`);
 });
 
 (async () => {
