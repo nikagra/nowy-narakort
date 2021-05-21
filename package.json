@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/nikagra/nowy-narakort#readme",
   "devDependencies": {
+    "@types/mustache": "^4.1.1",
     "@types/node": "^15.3.0",
     "typescript": "^4.2.4"
   },
@@ -24,6 +25,7 @@
     "@slack/bolt": "^3.3.0",
     "dotenv": "^9.0.2",
     "got": "^11.8.2",
-    "haversine-distance": "^1.2.1"
+    "haversine-distance": "^1.2.1",
+    "mustache": "^4.2.0"
   }
 }

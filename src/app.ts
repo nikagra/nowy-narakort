@@ -1,6 +1,9 @@
 import "./utils/env";
 import {App, LogLevel, SlackCommandMiddlewareArgs} from '@slack/bolt';
 import Client from "./clients/air-quality"
+import * as Mustache from 'mustache';
+import {loadTemplate} from './utils/helper';
+import got from 'got';
 
 // Initializes your app with your bot token and signing secret
 const app = new App({
@@ -9,19 +12,34 @@ const app = new App({
     logLevel: LogLevel.DEBUG
 });
 
+// Initialize Air Quality service client
 const client = new Client();
 
-app.command("/air", async ({command, ack, say}: SlackCommandMiddlewareArgs) => {
+interface MustacheParams {
+    station: string,
+    city: string,
+    date: string|undefined,
+    status: string|undefined
+}
+
+app.command("/air", async ({command, ack}: SlackCommandMiddlewareArgs) => {
     console.log(command);
     await ack();
 
-    let response = await client.getClosestStation(command.text)
-    console.log(response);
-    let airQualityIndex = await client.getAirQualityIndex(response.id)
+    let closestStation = await client.getClosestStation(command.text)
+    let airQualityIndex = await client.getAirQualityIndex(closestStation.id)
     console.log(airQualityIndex);
 
-    await say(`Aktualny stan jakości powietrza w mieście ${response.city.name} 🏙️: ${airQualityIndex?.stIndexLevel.indexLevelName}.`
-    + ` Pomiar wykonany na stacji "${response.stationName}" o dacie ${airQualityIndex?.stCalcDate} 🌡`);
+    let params: MustacheParams = {
+        station: closestStation.stationName,
+        city: closestStation.city.name,
+        date: airQualityIndex?.stCalcDate,
+        status: airQualityIndex?.stIndexLevel.indexLevelName
+    }
+    let template = await loadTemplate("response");
+    let output = Mustache.render(template.toString(), params);
+    console.log(output);
+    await got.post(command.response_url, { json: JSON.parse(output), responseType: 'json'});
 });
 
 (async () => {
@@ -30,3 +48,4 @@ app.command("/air", async ({command, ack, say}: SlackCommandMiddlewareArgs) => {
 
     console.log('⚡️ Bolt app is running!');
 })();
+

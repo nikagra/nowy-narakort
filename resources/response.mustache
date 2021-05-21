@@ -1,0 +1,49 @@
+{
+    "text": "Aktualny stan jakości powietrza w mieście {{city}} :cityscape:: {{status}}. Pomiar wykonany na stacji {{station}} {{date}} :thermometer:",
+    "blocks": [
+        {
+            "type": "header",
+            "text": {
+                "type": "plain_text",
+                "text": "Indeks jakości powietrza :earth_africa:",
+                "emoji": true
+            }
+        },
+        {
+            "type": "section",
+            "fields": [
+                {
+                    "type": "mrkdwn",
+                    "text": "*Stacja :test_tube::*\n{{station}}"
+                },
+                {
+                    "type": "mrkdwn",
+                    "text": "*Miasto :cityscape:*\n{{city}}"
+                }
+                ]
+            },
+            {
+                "type": "section",
+                "fields": [
+                    {
+                        "type": "mrkdwn",
+                        "text": "*Data :calendar::*\n{{date}}"
+                    },
+                    {
+                        "type": "mrkdwn",
+                        "text": "*Stan powietrza :leaves::*\n{{status}}"
+                    }
+                ]
+            },
+            {
+                "type": "divider"
+            },
+            {
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": "> Cieszę się z pięknej pogody, z talerzyka malin, z sensownego zdania w książce. Pascal miał rację, człowiek jest potworem. Nie, Pascal nie miał racji, człowiek jest cudem.\n —Sándor Márai"
+                }
+            }
+        ]
+}
