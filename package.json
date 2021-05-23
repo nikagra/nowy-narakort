@@ -4,7 +4,7 @@
   "description": "Nowy Narakort is a Slack bot which will check air pollution levels near the place you live in",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jasmine"
   },
   "repository": {
     "type": "git",
@@ -17,8 +17,12 @@
   },
   "homepage": "https://github.com/nikagra/nowy-narakort#readme",
   "devDependencies": {
+    "@types/jasmine": "^3.7.4",
     "@types/mustache": "^4.1.1",
     "@types/node": "^15.3.0",
+    "jasmine": "^3.7.0",
+    "jasmine-spec-reporter": "^7.0.0",
+    "ts-node": "^9.1.1",
     "typescript": "^4.2.4"
   },
   "dependencies": {
