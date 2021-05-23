@@ -4,6 +4,7 @@
   "description": "Nowy Narakort is a Slack bot which will check air pollution levels near the place you live in",
   "main": "index.js",
   "scripts": {
+    "build": "tsc --project ./ && mkdir ./dist/resources && cp ./resources/response.mustache ./dist/resources/response.mustache && npm test",
     "test": "jasmine"
   },
   "repository": {
