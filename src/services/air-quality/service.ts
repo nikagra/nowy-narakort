@@ -2,7 +2,7 @@ import Client from './client';
 import {InvalidCommandParamsError} from '../../errors';
 
 /** Air quality request parameters */
-class ClientRequestParams {
+export class ClientRequestParams {
     latitude: number;
     longitude: number;
 
@@ -15,7 +15,7 @@ class ClientRequestParams {
         let args: string[] = text.split(" ").filter(v => v.length != 0).map(v => v.trim());
         if (args.length != 2) {
             throw new InvalidCommandParamsError(
-                'Invalid number of command arguments',
+                    'Invalid number of command arguments'
             );
         }
         return {latitude: parseFloat(args[0]), longitude: parseFloat(args[1])}

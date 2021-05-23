@@ -29,7 +29,7 @@ export default class Client {
     public async getClosestStation(latitude: number, longitude: number): Promise<Station> {
         let stations = await this.getStations()
         if (stations.length == 0) {
-            throw new UnableToRetrieveStationsError();
+            throw new UnableToRetrieveStationsError("Unable to retrieve measurement stations from remote service");
         }
         let stationsWithDistance = stations
             .map(v => [v, haversineDistance({lat: parseFloat(v.gegrLat), lon: parseFloat(v.gegrLon)}, {lat: latitude, lon: longitude})]);
@@ -42,6 +42,15 @@ export default class Client {
         }
     }
 
+    public async getAirQualityIndex(stationId: number): Promise<AirQualityIndex> {
+        try {
+            const response = await got.get(this.baseUrl + `/aqindex/getIndex/${stationId}`);
+            return JSON.parse(response.body);
+        } catch (e) {
+            throw new UnableToAirQualityIndexError();
+        }
+    }
+
     private async getStations(): Promise<Station[]> {
         try {
             const response = await got.get(this.baseUrl + '/station/findAll');
@@ -49,15 +58,6 @@ export default class Client {
         } catch (e) {
             console.log(e)
             return [];
-        }
-    }
-
-    public async getAirQualityIndex(stationId: number): Promise<AirQualityIndex> {
-        try {
-            const response = await got.get(this.baseUrl + `/aqindex/getIndex/${stationId}`);
-            return JSON.parse(response.body);
-        } catch (e) {
-            throw new UnableToAirQualityIndexError();
         }
     }
 }
