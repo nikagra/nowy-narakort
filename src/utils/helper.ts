@@ -1,8 +1,12 @@
 import * as fs from 'fs';
 import * as util from 'util';
+import {AirQualityResult} from '../services/air-quality/service';
+import * as Mustache from 'mustache';
 
-export async function loadTemplate(template: string): Promise<string> {
+/** Rendered template using provided parameters */
+export async function prepareTemplatedResponse(templateName: string, params: AirQualityResult): Promise<string> {
     const readFile = util.promisify(fs.readFile);
-    return await readFile(process.cwd() + "/resources/" + template + ".mustache")
+    let template = await readFile(process.cwd() + '/resources/' + templateName + '.mustache')
         .then(buffer => buffer.toString());
+    return Mustache.render(template.toString(), params);
 }
